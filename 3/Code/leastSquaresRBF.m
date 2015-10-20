@@ -1,5 +1,4 @@
 function [model] = leastSquaresRBF(X,y,sigma)
-
 [N,D] = size(X);
 
 Xrbf = rbfBasis(X,X,sigma);
@@ -11,7 +10,6 @@ model.X = X;
 model.w = w;
 model.sigma = sigma;
 model.predict = @predict;
-
 end
 
 function [yhat] = predict(model,Xtest)
