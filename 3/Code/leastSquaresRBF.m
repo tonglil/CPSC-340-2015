@@ -1,17 +1,15 @@
-function [model] = leastSquaresRBF(X,y,sigma)
-
-[N,D] = size(X);
-
+function [model] = leastSquaresRBF(X,y,sigma,lambda)
 Xrbf = rbfBasis(X,X,sigma);
 
+[n,~] = size(Xrbf);
+
 % Solve least squares problem
-w = (Xrbf'*Xrbf)\Xrbf'*y;
+w = (Xrbf'*Xrbf + lambda * eye(n))\Xrbf'*y;
 
 model.X = X;
 model.w = w;
 model.sigma = sigma;
 model.predict = @predict;
-
 end
 
 function [yhat] = predict(model,Xtest)
