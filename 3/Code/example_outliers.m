@@ -1,12 +1,11 @@
-
 % Load data
-load outliersData.mat
+load outliersData.mat;
 
 % Plot data
 figure(1);
 plot(X,y,'b.')
 title('Training Data');
-hold on
+hold on;
 
 % Fit least-squares estimator
 model = leastSquares(X,y);
