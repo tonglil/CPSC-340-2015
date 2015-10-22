@@ -1,6 +1,8 @@
 function [model] = clusterDBcluster(X,eps,minPts)
 
 [N,D] = size(X);
+% N = rows (objects)
+% D = columns (features)
 
 % Compute distances between all points
 D = X.^2*ones(D,N) + ones(N,D)*(X').^2 - 2*X*X';
