@@ -32,5 +32,15 @@ yhat = Xtest*w;
 end
 
 function [f,g] = funObj(w,X,y,epsilon)
-
+    % Perform element-wise operations before summation
+    
+    % Initial formula
+    a = sqrt((y - X * w).^2 + epsilon);
+        
+    f = sum(a);
+    
+    % Derived numerator
+    b = (-y .* X) + (w' * X.^2);
+    
+    g = sum(b ./ a);
 end
