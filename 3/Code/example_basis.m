@@ -6,10 +6,13 @@ load basisData.mat
 figure(1);
 plot(X,y,'b.')
 title('Training Data');
-hold on
+hold on;
 
 % Fit least-squares estimator
-model = leastSquares(X,y);
+% model = leastSquares(X,y);
+
+% Fit least-squares with bias estimator
+model = simpleLeastSquares(X,y);
 
 % Draw model prediction
 Xsample = [min(X):.1:max(X)]';
