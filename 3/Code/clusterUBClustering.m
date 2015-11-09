@@ -26,7 +26,7 @@ end
 [R,runs] = size(clusters);
 
 % Find similarity between each point with every other point
-similarities = zeros(1,R);
+similarities = zeros(R);
 
 for i = 1:R
     for j = 1:R
