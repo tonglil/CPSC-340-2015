@@ -16,7 +16,8 @@ Xvalidate = [ones(t,1) Xvalidate];
 %% Fit logistic regression model,
 % then report number of non-zeroes and validation error
 
-model = logReg(X,y);
+% model = logReg(X,y);
+model = logRegL2(X,y,1);
     
 numberOfNonZero = nnz(model.w)
 
