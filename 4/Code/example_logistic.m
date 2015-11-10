@@ -18,7 +18,8 @@ Xvalidate = [ones(t,1) Xvalidate];
 
 % model = logReg(X,y);
 % model = logRegL2(X,y,1);
-model = logRegL1(X,y,1);
+% model = logRegL1(X,y,1);
+model = logRegL0(X,y,1);
 
 numberOfNonZero = nnz(model.w)
 

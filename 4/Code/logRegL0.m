@@ -26,7 +26,15 @@ while minScore ~= oldScore
         
         % Fit the model with 'i' added to the features,
         % then compute the score and update the minScore/minInd
-        ind_new = union(ind,i);
+        newInd = union(ind,i);
+        
+        w = findMin(@logisticLoss,w0(newInd),maxFunEvals,verbose,X(:,newInd),y);
+        score = logisticLoss(w,X(:,newInd),y) + lambda*length(w);
+        
+        if score < minScore
+            minScore = score;
+            minInd = newInd;
+        end
     end
     ind = minInd;
 end
