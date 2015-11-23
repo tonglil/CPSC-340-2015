@@ -16,8 +16,8 @@ for i = 1:16
 end
 
 %% Run PCA
-k = 10;
-model = dimRedPCA(X,k);
+k = 100;
+model = dimRedNMF(X,k);
 
 % Make low-dimensional representation
 Z = model.compress(model,X);
