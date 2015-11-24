@@ -35,10 +35,12 @@ fprintf('Average absolute error by using user+movie average rating: %f\n',err);
 
 %% SVD Recommender
 
+tic
 k = 10;
 model = recommendSVD(X,y,k);
 yhat = model.predict(model,Xvalidate);
 err = mean(abs(yhat - yvalidate));
+toc
 
 fprintf('Average absolute error by using user+movie average rating: %f\n',err);
 
