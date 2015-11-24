@@ -1,4 +1,5 @@
 load animals.mat
+[n,d] = size(X);
 
 % Figure 1 shows raw data
 figure(1);

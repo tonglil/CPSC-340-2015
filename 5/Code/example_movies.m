@@ -32,3 +32,12 @@ yhat = model.predict(model,Xvalidate);
 err = mean(abs(yhat - yvalidate));
 
 fprintf('Average absolute error by using user+movie average rating: %f\n',err);
+
+%% SVD Recommender
+
+k = 10;
+model = recommendSVD2(X,y,k);
+yhat = model.predict(model,Xvalidate);
+err = mean(abs(yhat - yvalidate));
+
+fprintf('Average absolute error by using user+movie average rating: %f\n',err);
