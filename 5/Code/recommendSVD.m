@@ -14,35 +14,37 @@ Z = .00001*randn(n,k);
 
 % Optimization
 maxIter = 10;
-alpha = 1e-4;
+alpha = 1e-2;
 for iter = 1:maxIter
-    % Compute gradient
-    gu = zeros(n,1);
-    gm = zeros(d,1);
-    gW = zeros(k,d);
-    gZ = zeros(n,k);
+    for j = 1:nRatings
+        % Compute gradient
+        gu = zeros(n,1);
+        gm = zeros(d,1);
+        gW = zeros(k,d);
+        gZ = zeros(n,k);
     
-    for i = 1:nRatings
+        % Pick one sample randomly
+        i = randi([1,nRatings]);
+
         % Make prediction for this rating based on current model
         u = X(i,1);
         m = X(i,2);
         yhat = bu(u) + bm(m) + W(:,m)'*Z(u,:)';
-        
-        % Add gradient of this prediction to overall gradient
-        % (follows from chain rule)
+
+        % Use the gradient for the random sample
         r = y(i)-yhat;
-        gu(u) = gu(u) - r;
-        gm(m) = gm(m) - r;
-        gW(:,m) = gW(:,m) - r*Z(u,:)';
-        gZ(u,:) = gZ(u,:) - r*W(:,m)';
+        gu(u) = - r;
+        gm(m) = - r;
+        gW(:,m) = - r*Z(u,:)';
+        gZ(u,:) = - r*W(:,m)';
+
+        % Take a small step in the negative gradient directions
+        bu = bu - alpha*gu;
+        bm = bm - alpha*gm;
+        W = W - alpha*gW;
+        Z = Z - alpha*gZ;
     end
-    
-    % Take a small step in the negative gradient directions
-    bu = bu - alpha*gu;
-    bm = bm - alpha*gm;
-    W = W - alpha*gW;
-    Z = Z - alpha*gZ;
-    
+
     % Compute and output function value
     f = 0;
     for i = 1:nRatings
