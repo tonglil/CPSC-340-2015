@@ -1,5 +1,4 @@
 function [model] = recommendSVD(X,y,k)
-
 n = max(X(:,1));
 d = max(X(:,2));
 nRatings = size(X,1);
@@ -17,14 +16,13 @@ Z = .00001*randn(n,k);
 maxIter = 10;
 alpha = 1e-4;
 for iter = 1:maxIter
-    
     % Compute gradient
     gu = zeros(n,1);
     gm = zeros(d,1);
     gW = zeros(k,d);
     gZ = zeros(n,k);
+    
     for i = 1:nRatings
-        
         % Make prediction for this rating based on current model
         u = X(i,1);
         m = X(i,2);
