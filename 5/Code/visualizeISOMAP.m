@@ -5,7 +5,7 @@ function [Z] = visualizeISOMAP(X,k,names)
 D = X.^2*ones(d,n) + ones(n,d)*(X').^2 - 2*X*X';
 D = sqrt(abs(D));
 
-knn = 3;
+knn = 2;
 G = zeros(n);    % Adjacency matrix of distances to K nearest neighbors
 
 % For each column of distances, get KNN
@@ -26,17 +26,26 @@ end
 % Reset all distances
 D = zeros(n);
 
+maxD = 0;
+
 % For each node, get the shortest distance to another node
 for i = 1:n
     for j = 1:n
         % The distance to itself is 0
         if j ~= i
             [cost, ~] = dijkstra(G,i,j);
-
+            
+            if (~isinf(cost) && cost > maxD)
+                maxD = cost;
+            end
+            
             D(i,j) = cost;
         end
     end
 end
+
+% If the distance is infinite, set it to the max
+D(isinf(D)) = maxD;
 
 % Run MDS
 
