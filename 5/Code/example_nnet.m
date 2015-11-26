@@ -6,7 +6,7 @@ X = [ones(N,1) X];
 d = d + 1;
 
 % Choose network structure
-nHidden = [3];
+nHidden = [15];
 
 % Count number of parameters and initialize weights 'w'
 nParams = d*nHidden(1);
@@ -18,10 +18,10 @@ w = randn(nParams,1);
 
 % Train with stochastic gradient
 maxIter = 100000;
-stepSize = 1e-4;
+stepSize = 1e-2;
 funObj = @(w,i)MLPregressionLoss(w,X(i,:),y(i),nHidden);
+
 for t = 1:maxIter
-        
     % Every few iterations, plot the data/model:
     if mod(t-1,round(maxIter/100)) == 0
         fprintf('Training iteration = %d\n',t-1);
