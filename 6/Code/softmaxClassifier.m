@@ -60,14 +60,12 @@ g = zeros(d,k);
 for c = 1:k
     eachK = zeros(n,d);
     for i = 1:n
-        num = exp(W(:,c)' * X(i,:)') * X(i,:);
+        Xi = X(i,:);
+        
+        numerator = exp(W(:,c)' * Xi') * Xi;
+        denominator = sum(exp(Xi * W));
 
-        denom = 0;
-        for cPrime = 1:k
-            denom = denom + exp(W(:,cPrime)' * X(i,:)');
-        end
-
-        eachK(i,:) = -X(i,:) * (y(i) == c) + num / denom;
+        eachK(i,:) = - Xi * (y(i) == c) + numerator / denominator;
     end
     g(:,c) = sum(eachK);
 end
