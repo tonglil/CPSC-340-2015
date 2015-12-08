@@ -48,13 +48,11 @@ W = reshape(w, [d k]);
 % Compute loss
 f = 0;
 for i = 1:n
-    yi = y(i);
-    term1 = -W(:,yi)' * X(i,:)';
-    term2 = 0;
-    for c = 1:k
-        term2 = term2 + exp(W(:,c)' * X(i,:)');
-    end
-    f = term1 + term2 + f;
+    yi = y(i);      % the k
+    Xi = X(i,:);    % 1 x 3
+
+    %       (3 x 1)' (1 x 3)'   sum((1 x 3) (3 x 5))
+    f = f - W(:,yi)' * Xi' + log(sum(exp(Xi * W)));
 end
 
 % Compute gradient
@@ -68,7 +66,7 @@ for c = 1:k
         for cPrime = 1:k
             denom = denom + exp(W(:,cPrime)' * X(i,:)');
         end
-        
+
         eachK(i,:) = -X(i,:) * (y(i) == c) + num / denom;
     end
     g(:,c) = sum(eachK);
@@ -76,12 +74,6 @@ end
 
 % Reshape the gradient's dimensions to a 1-D vector "1 x (d * k)"
 g = g(:);
-
-% fprintf('f has size %i x %i\n', size(f,1), size(f,2));
-
-% fprintf('f = %d\n', f);
-% fprintf('g has size %i x %i', size(g,1), size(g,2));
-% g
 end
 
 function [yhat] = predict(model,X)
