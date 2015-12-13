@@ -7,7 +7,9 @@ load multiData.mat
 X = [ones(n,1) X];
 
 % Fit least-squares classifier
-model = leastSquaresClassifier(X,y);
+% model = leastSquaresClassifier(X,y);
+% model = logLinearClassifier(X,y);
+model = softmaxClassifier(X,y);
 
 % Compute validation error
 t = size(Xvalidate,1);
