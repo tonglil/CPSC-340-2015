@@ -2,6 +2,7 @@ load simpleGraph.mat % Loads adjacency A and labelList
 
 n = length(A);
 p = zeros(n,2);
+% Number of runs
 r = 100;
 
 for i = 1:n
